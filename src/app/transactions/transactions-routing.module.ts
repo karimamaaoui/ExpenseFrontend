@@ -4,7 +4,7 @@ import { TransactionListComponent } from './transaction-list/transaction-list.co
 
 const routes: Routes = [
   {
-    path: '/', component: TransactionListComponent
+    path: '', component: TransactionListComponent
   }
 ];
 
