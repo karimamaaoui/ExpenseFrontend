@@ -18,4 +18,12 @@ export class AuthService {
     return this.http.post(`${this.url}/signup`, user);
   }
   
+  forgotPassword(email){
+    return this.http.post(`${this.url}/forgot-password`,email);
+  }
+
+  
+  resetPassword(token,newPassword){
+    return this.http.post(`${this.url}/reset-password?token=${token}`, { newPassword });
+  }
 }
