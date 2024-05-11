@@ -1,3 +1,26 @@
 <router-outlet></router-outlet>
 <app-navbar></app-navbar>
-<p>transaction-list works!</p>
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Tags</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let transaction of tabTrans">
+            <td>{{ transaction.amount }}</td>
+            <td>{{ transaction.description }}</td>
+            <td>{{ transaction.category }}</td>
+            <td>
+                <ul>
+                    <li *ngFor="let tag of transaction.tags">{{ tag }}</li>
+                </ul>
+            </td>
+      </tr>
+    </tbody>
+  </table>
