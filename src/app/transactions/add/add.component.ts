@@ -17,7 +17,6 @@ export class AddComponent {
         console.log("response",response)
         this.toastr.success('Successful login!');
         this.router.navigateByUrl('/home');
-
       },
       error: (err)=>{
         console.log("error",err)
