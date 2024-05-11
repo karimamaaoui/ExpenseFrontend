@@ -1,5 +1,3 @@
-<router-outlet></router-outlet>
-<app-navbar></app-navbar>
 
 <table class="table">
     <thead class="table-dark">
@@ -7,6 +5,7 @@
             <th>Amount</th>
             <th>Description</th>
             <th>Category</th>
+            <th>createdAt</th>
             <th>Tags</th>
 
         </tr>
@@ -16,6 +15,8 @@
             <td>{{ transaction.amount }}</td>
             <td>{{ transaction.description }}</td>
             <td>{{ transaction.category }}</td>
+            <td>{{ transaction.createdAt | date: 'medium' }}</td>
+
             <td>
                 <ul>
                     <li *ngFor="let tag of transaction.tags">{{ tag }}</li>

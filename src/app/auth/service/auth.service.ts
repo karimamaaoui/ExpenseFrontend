@@ -26,4 +26,12 @@ export class AuthService {
   resetPassword(token,newPassword){
     return this.http.post(`${this.url}/reset-password?token=${token}`, { newPassword });
   }
+
+  logout(){
+    localStorage.removeItem('access_token');
+  }
+
+  isUserLoggedIn(): boolean {
+    return !!localStorage.getItem('access_token');
+  }
 }

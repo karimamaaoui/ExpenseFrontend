@@ -3,16 +3,20 @@ import { CommonModule } from '@angular/common';
 
 import { TransactionsRoutingModule } from './transactions-routing.module';
 import { TransactionListComponent } from './transaction-list/transaction-list.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { AddComponent } from './add/add.component';
+import { HomeComponent } from './home/home.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     TransactionListComponent,
-    NavbarComponent
+    AddComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     TransactionsRoutingModule
   ]
 })

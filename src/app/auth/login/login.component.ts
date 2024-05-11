@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
   constructor(private authServ: AuthService,private toastr: ToastrService,  private router: Router){}
+  
 
   handleSubmit(f){
     this.authServ.login(f.value).subscribe({
@@ -21,7 +22,7 @@ export class LoginComponent {
 
       },
       error: (err)=>{
-        this.toastr.error('Error : ',err['error'].message);
+        this.toastr.error(err['error'].message);
         
      //   console.log("error",err['error'].message)
       },

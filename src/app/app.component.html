@@ -1,3 +1,8 @@
 <div class="container">
+    <ng-container>
+    @if(!!checkUserLoginStatus()){
+        <app-navbar></app-navbar>
+    }
+</ng-container>
 <router-outlet></router-outlet>
 </div>

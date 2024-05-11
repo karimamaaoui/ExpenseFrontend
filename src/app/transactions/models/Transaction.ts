@@ -6,6 +6,7 @@ export class Transaction {
 
     public category: string,
 
-    public tags: [String]
+    public tags: [String],
+    public createdAt: Date
   ) {}
 }
