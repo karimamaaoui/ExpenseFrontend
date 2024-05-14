@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
 import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './auth/register/register.component';
@@ -31,6 +31,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     MyRouting,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,    
     ToastrModule.forRoot(), 
   ],
   providers: [provideHttpClient(withInterceptors([authtokenInterceptor]))],

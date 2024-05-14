@@ -9,6 +9,7 @@ import { Transaction } from '../models/Transaction';
 export class TransactionService {
 
   url = 'http://localhost:3000/transactions';
+  
 
   constructor(private http: HttpClient) {}
 
@@ -17,6 +18,9 @@ export class TransactionService {
   }
   addTransaction(newTransaction){
     return this.http.post(`${this.url}/add`, newTransaction);
+  }
+  searchTransaction(params){
+    return this.http.get(`${this.url}/search`, {params});
   }
   
 }

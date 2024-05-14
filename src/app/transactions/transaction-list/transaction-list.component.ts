@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { TransactionService } from '../services/transaction.service';
 import { Transaction } from '../models/Transaction';
 
@@ -9,11 +9,11 @@ import { Transaction } from '../models/Transaction';
 })
 export class TransactionListComponent {
   tabTrans: Transaction [] = [];
-
+  @Input() transactions: Transaction[] = [];
   transactionService = inject(TransactionService);
 
   ngOnInit(){
-    this.transactionService.getTransactions().subscribe({
+  /*  this.transactionService.getTransactions().subscribe({
       next : (data : Transaction[] ) => {
         this.tabTrans= data;
         console.log("response data",data)
@@ -23,7 +23,7 @@ export class TransactionListComponent {
       alert('Problem');
 
     }
-    })
+    })*/
   }
 
 }

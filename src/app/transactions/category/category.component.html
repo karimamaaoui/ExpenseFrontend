@@ -1,0 +1,8 @@
+<form #f="ngForm" (ngSubmit)="addCategory(f)">
+    <div class="mb-3">
+        <label for="nameCat" class="form-label">Name Category : </label>
+        <input type="text" class="form-control" id="nameCat" name="nameCat" ngModel required>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Category</button>
+
+</form>

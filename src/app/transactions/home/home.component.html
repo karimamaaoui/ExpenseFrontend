@@ -1,2 +1,84 @@
 <router-outlet></router-outlet>
-<app-transaction-list></app-transaction-list>
+
+
+<br>
+
+<div class="row">
+    <div class="col-sm-3 mx-auto d-flex flex-column">
+        <div class="card text-center" style="background-color: #DAF0F7; flex-grow: 1;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-calendar" style="font-size: 3rem;"></i>
+                </h5>
+                <p class="card-text">First Expense Date: {{ firstExpenseDate | date }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-sm-3 mx-auto d-flex flex-column">
+        <div class="card text-center" style="background-color: #DAF0F7; flex-grow: 1;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-calendar" style="font-size: 3rem;"></i>
+                </h5>
+                <p class="card-text">Latest Expense Date: {{ lastExpenseDate | date }}</p>
+            </div>
+        </div>
+    </div>
+   
+    <div class="col-sm-3 mx-auto d-flex flex-column">
+        <div class="card text-center" style="background-color: #DAF0F7; flex-grow: 1;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-calendar" style="font-size: 3rem;"></i>
+                </h5>
+                <p class="card-text">Number of Expenses: {{ numberOfExpenses() }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-sm-3 mx-auto d-flex flex-column">
+        <div class="card text-center" style="background-color: #DAF0F7; flex-grow: 1;">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="bi bi-currency-dollar" style="font-size: 3rem;"></i>
+                </h5>
+                <p class="card-text">Total Amount: {{ totalAmount }} TND</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<section class="header-main border-bottom bg-white">
+    <div class="container-fluid">
+      <div class="row p-2 pt-3 pb-3 d-flex align-items-center">
+        <div class="col-md-3">
+          <p>Search By Category</p>
+          @for( category of tabCategories ; track $index){
+          <div  class="form-check">
+            <input class="form-check-input" name="nameCat" type="checkbox" id="{{ category._id }}"   [checked]="selectedCatNames.includes(category.nameCat)"
+            (change)="toggleCategorySelection(category.nameCat)"  [value]="category.nameCat">
+            <label class="form-check-label" for="{{ category._id }}">{{ category.nameCat }}</label>
+          </div>}
+        </div>
+        
+        <div class="col-md-6">
+          <div class="d-flex form-inputs">
+            <div class="form-group">
+              <label for="customRange1" class="form-label">Sélectionnez un montant</label>
+              <input type="range" class="form-range" id="customRange1" min="0" max="1000" step="1" name="amount" [(ngModel)]="selectedAmount">
+              <span class="form-text">{{ selectedAmount }}</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="class-md-3"> 
+            <button class="btn btn-primary ml-2" (click)="search()" >Search</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+<app-transaction-list [transactions]="tabTransFilter"></app-transaction-list>
