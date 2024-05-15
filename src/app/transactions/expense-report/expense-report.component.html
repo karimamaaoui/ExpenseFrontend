@@ -1,0 +1,91 @@
+<h1>Expense Report</h1>
+
+<div class="card text-center " style="background-color: #daf0f7; flex-grow: 1">
+  <div class="card-body">
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="startDateInput" class="form-label"  >Start Date </label>
+            <input
+              type="date"
+              [(ngModel)]="selectedStartDate"
+              class="form-control"
+              id="startDateInput"
+              name="selectedStartDate"
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="endDateInput" class="form-label">End Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="endDateInput"
+              name="selectedEndDate"
+              [(ngModel)]="selectedEndDate"
+            />
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="class-md-3"> 
+        <button class="btn btn-primary ml-2" (click)="loadTransactions()">Filter</button>
+    </div>
+  </div>
+</div>
+<br>
+<div >
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            Transaction Details
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Amount</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Type Payment</th>
+                    <th>createdAt</th>
+                    <th>Tags</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                    @for(transaction of transactions; track $index) {
+                        <tr>
+                          <td>{{ transaction.amount }}</td>
+                          <td>{{ transaction.description }}</td>
+                          <td>{{ transaction.category.nameCat }}</td>
+                          <td>{{ transaction.typePayment }}</td>
+                          <td>{{ transaction.createdAt | date: 'medium' }}</td>
+                          <td>
+                            <ul>
+                              @for(tag of transaction.tags; track $index) {
+                              <li>{{ tag }}</li>
+                              }
+                            </ul>
+                          </td>
+
+                  </tr>
+                }
+                </tbody>
+                <tfoot>
+                  <tr class="table-dark"   style="color: white;">
+                    <td colspan="6" >Total: {{ totalAmount }}</td>
+                  </tr>
+                </tfoot>
+              </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

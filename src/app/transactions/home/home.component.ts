@@ -21,6 +21,10 @@ export class HomeComponent implements OnInit {
   totalAmount: number = 0;
   firstExpenseDate: Date ;
   lastExpenseDate: Date;
+  selectedStartDate: Date;
+  selectedEndDate: Date;
+
+
 
   constructor(
     private transactionService: TransactionService,
@@ -46,7 +50,7 @@ export class HomeComponent implements OnInit {
         this.numberOfExpenses();
       },
       error: (e) => {
-        console.log(`Error during the transaction list retrieval: ${e}`);
+      //  console.log(`Error during the transaction list retrieval: ${e}`);
         alert('Problem');
       }
     });
@@ -59,7 +63,7 @@ export class HomeComponent implements OnInit {
     this.categoryService.getCategories().subscribe({
       next: (data: Category[]) => {
         this.tabCategories = data;
-        console.log("Response data category", data);
+       // console.log("Response data category", data);
       },
       error: (err) => {
         console.error("Error", err);
@@ -81,15 +85,24 @@ export class HomeComponent implements OnInit {
       this.selectedCatNames.push(categoryName);
     }
   }
-
+  //search by category || start date && end date || amount
   search() {
+    const startDate = this.selectedStartDate ? new Date(this.selectedStartDate) : null;
+    const endDate = this.selectedEndDate ? new Date(this.selectedEndDate) : null;
+  
     this.tabTransFilter = this.tabTrans.filter(transaction => {
       const matchesAmount = this.selectedAmount ? transaction.amount === this.selectedAmount : true;
       const matchesCategory = this.selectedCatNames.length > 0 ? this.selectedCatNames.includes(transaction.category.nameCat) : true;
-      return matchesAmount && matchesCategory;
+      const transactionDate = new Date(transaction.createdAt);
+      const localTransactionDate = new Date(transactionDate.getTime() + (transactionDate.getTimezoneOffset() * 60000));
+
+    const withinDateRange = (!startDate || localTransactionDate >= startDate) && (!endDate || localTransactionDate <= endDate);
+
+      return matchesAmount && matchesCategory && withinDateRange;
+      
     });
   }
-
+  //calculate the total amount
   calculateTotalAmount() {
     this.totalAmount = this.tabTrans.reduce((total, transaction) => total + transaction.amount, 0);
   }
@@ -106,17 +119,14 @@ export class HomeComponent implements OnInit {
   }
 
   lastExpenseDateFct(): Date | null {
-    if (this.tabTrans.length === 0) {
-      return null; // If there are no transactions, return null
-    }
-    
+ 
     // Find the maximum createdAt value
     const maxCreatedAt = this.tabTrans.reduce((max, transaction) => {
       return transaction.createdAt > max ? transaction.createdAt : max;
     }, this.tabTrans[0].createdAt);
   
-    this.lastExpenseDate = new Date(maxCreatedAt); // Store the last expense date
-    return this.lastExpenseDate; // Return the last createdAt value as a Date object
+    this.lastExpenseDate = new Date(maxCreatedAt); 
+    return this.lastExpenseDate; 
   }
   
 

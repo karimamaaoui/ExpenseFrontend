@@ -15,12 +15,12 @@ export class CategoryChartsComponentComponent {
   dataCategory: any[]=[];
   dataAmount: any[]=[];
   tabTrans=[];
-
+  
 
   ngOnInit(){
     this.transactionService.getTransactions().subscribe({
       next: (res: Transaction[]) => {
-        console.log("data",res)
+      //  console.log("data",res)
         this.data= res;
         if(this.data!=null){
           const categoryMap = new Map<string, number>();
@@ -28,14 +28,16 @@ export class CategoryChartsComponentComponent {
           for (let i = 0; i < this.data.length; i++) {
             const cat = this.data[i].category.nameCat;
             const amount = this.data[i].amount;
+           
             if (categoryMap.has(cat)) {
               categoryMap.set(cat, categoryMap.get(cat)! + amount);
-              console.log("categorymap",categoryMap)
+          //    console.log("categorymap",categoryMap)
             } else {
               categoryMap.set(cat, amount);
             }
           }
           this.showChartDataByCategroy(Array.from(categoryMap.keys()), Array.from(categoryMap.values()));
+          
         }
       },
       error: (e) => {
@@ -73,5 +75,6 @@ export class CategoryChartsComponentComponent {
       }
     });
   }
+
 
 }

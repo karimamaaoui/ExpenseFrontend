@@ -4,6 +4,8 @@ import { TransactionListComponent } from './transaction-list/transaction-list.co
 import { AddComponent } from './add/add.component';
 import { HomeComponent } from './home/home.component';
 import { CategoryComponent } from './category/category.component';
+import { ExpenseReportComponent } from './expense-report/expense-report.component';
+import { BudgetComponent } from './budget/budget.component';
 
 const routes: Routes = [
   {
@@ -16,6 +18,13 @@ const routes: Routes = [
   {
     path: 'category', component: CategoryComponent
   },
+  
+  {
+    path: 'report', component: ExpenseReportComponent
+  },
+  {
+    path: 'budget', component: BudgetComponent
+  }
 ];
 
 export const TransactionsRoutingModule = RouterModule.forChild(routes);

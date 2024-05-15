@@ -1,0 +1,14 @@
+canvas#myChart {
+    width: 100% !important;
+    height: 400px !important;
+  }
+  .card-budget {
+    width: 48%; 
+    margin-bottom: 20px;
+    
+  }
+  
+  
+  .input-container {
+    width: 45%; 
+  }

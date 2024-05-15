@@ -11,7 +11,9 @@
                 <th>Type Payment</th>
                 <th>Date</th>
                 <th>Tags</th>
-              </tr>
+                <th>Action</th>
+
+            </tr>
             </thead>
             <tbody>
               @for(transaction of transactions; track $index) {
@@ -27,6 +29,17 @@
                     <li>{{ tag }}</li>
                     }
                   </ul>
+                </td>
+                <td>
+                   <button type="button" class="btn btn-primary"  style="margin-right: 5px;">Edit</button>
+                  
+               
+                   <button type="button" class="btn btn-danger " style="margin-right: 5px;">Delete</button>
+
+                  
+                 <button type="button" class="btn btn-secondary"  style="margin-right: 5px;">Details</button>
+                  
+                      
                 </td>
               </tr>
               }

@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { CategoryComponent } from './category/category.component';
 import { TagInputModule } from 'ngx-chips';
 import { CategoryChartsComponentComponent } from './category-charts-component/category-charts-component.component';
+import { ExpenseReportComponent } from './expense-report/expense-report.component';
+import { BudgetComponent } from './budget/budget.component';
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import { CategoryChartsComponentComponent } from './category-charts-component/ca
     AddComponent,
     HomeComponent,
     CategoryComponent,
-    CategoryChartsComponentComponent
+    CategoryChartsComponentComponent,
+    ExpenseReportComponent,
+    BudgetComponent,
   ],
   imports: [
     CommonModule,

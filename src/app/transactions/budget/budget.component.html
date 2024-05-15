@@ -1,0 +1,63 @@
+
+<h1>Bugdet</h1>
+
+<div class="card text-center " style="background-color: #daf0f7; flex-grow: 1">
+  <div class="card-body">
+    <form #f="ngForm" (ngSubmit)="addBudget(f)">
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="amount" class="form-label"  >Amount </label>
+            <input
+              type="text"
+              class="form-control"
+              id="amount"
+              name="amount"
+              ngModel
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select"  name="category"  [(ngModel)]="selectedCategory">
+              <option value="">Select a  category</option>
+              @for( cat of tabCategories ;track $index){
+                  <option [value]="cat._id">{{cat.nameCat}}</option>
+              }
+            </select>
+         
+          </div>
+        </div>
+
+      </div>
+
+      <br>
+      <div class="class-md-3"> 
+        <button class="btn btn-primary ml-2" >Add Budget</button>
+    </div>
+  </form>
+  </div>
+
+</div>
+
+<br>
+<div class="card card-budget">
+  <div class="card-body">
+    <h5 class="card-title">Existing Budgets</h5>
+    <div *ngFor="let budget of tabBudgets">
+      <div class="mb-3">
+        <p>{{ budget.category.nameCat }}</p>
+        <div class="progress">
+          <div class="progress-bar" [class]="calculateProgressColor(calculateSpentAmount(budget.category.nameCat))" role="progressbar" [style.width.%]="calculateSpentAmount(budget.category.nameCat)" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <p>Total Spent: {{ calculateSpentAmount(budget.category.nameCat) }}</p>
+      </div>
+    </div>
+  </div>
+
+
+
+  
+ 
+</div>

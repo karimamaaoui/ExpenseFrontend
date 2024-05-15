@@ -67,12 +67,18 @@
         </div>
         <div class="col-md-3">
             <div class="form-group">
-              <label for="dateInput" class="form-label">Select a Date</label>
-              <input type="date" class="form-control" id="dateInput" name="selectedDate" >
+              <label for="dateInput" class="form-label">Select a Start Date </label>
+              <input type="date" class="form-control" id="dateInput" name="selectedDate" [(ngModel)]="selectedStartDate" >
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="dateInput" class="form-label">Select a End Date</label>
+              <input type="date" class="form-control" id="dateInput" name="selectedDate" [(ngModel)]="selectedEndDate">
             </div>
           </div>
            
-        <div class="col-md-6">
+        <div class="col-md-3">
           <div class="d-flex form-inputs">
             <div class="form-group">
               <label for="customRange1" class="form-label">Sélectionnez un montant</label>
