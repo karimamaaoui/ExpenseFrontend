@@ -13,17 +13,6 @@ export class TransactionListComponent {
   transactionService = inject(TransactionService);
 
   ngOnInit(){
-  /*  this.transactionService.getTransactions().subscribe({
-      next : (data : Transaction[] ) => {
-        this.tabTrans= data;
-        console.log("response data",data)
-      },
-
-      error : (e) => {console.log(`Error during the transaction list retrieval : ${e}`)
-      alert('Problem');
-
-    }
-    })*/
   }
 
 }

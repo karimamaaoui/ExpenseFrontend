@@ -48,6 +48,8 @@
         </div>
     </div>
 </div>
+<br>
+<app-category-charts-component ></app-category-charts-component>
 
 <br>
 
@@ -63,7 +65,13 @@
             <label class="form-check-label" for="{{ category._id }}">{{ category.nameCat }}</label>
           </div>}
         </div>
-        
+        <div class="col-md-3">
+            <div class="form-group">
+              <label for="dateInput" class="form-label">Select a Date</label>
+              <input type="date" class="form-control" id="dateInput" name="selectedDate" >
+            </div>
+          </div>
+           
         <div class="col-md-6">
           <div class="d-flex form-inputs">
             <div class="form-group">
@@ -80,5 +88,5 @@
       </div>
     </div>
   </section>
-  
+<br>
 <app-transaction-list [transactions]="tabTransFilter"></app-transaction-list>

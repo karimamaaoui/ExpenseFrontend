@@ -1,41 +1,37 @@
 @if (transactions && transactions.length > 0){
 
-
-<table class="table">
-    <thead class="table-dark">
-        <tr>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Category</th>
-
-            <th>Type Payment</th>
-            <th>Date </th>
-            <th>Tags</th>
-
-        </tr>
-    </thead>
-    <tbody>
-        @for( transaction of transactions ;track $index){
-            <tr>
-        
-            <td>{{ transaction.amount }}</td>
-            <td>{{ transaction.description }}</td>
-            <td>{{ transaction.category.nameCat }}</td>
-            <td>{{ transaction.typePayment }}</td>
-            <td>{{ transaction.createdAt | date: 'medium' }}</td>
-
-            
-        <td>
-            <ul>
-                @for(tag of transaction.tags; track $index){
+    <div class="card">
+        <div class="card-body">
+          <table class="table">
+            <thead class="table-dark">
+              <tr>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Type Payment</th>
+                <th>Date</th>
+                <th>Tags</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(transaction of transactions; track $index) {
+              <tr>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.description }}</td>
+                <td>{{ transaction.category.nameCat }}</td>
+                <td>{{ transaction.typePayment }}</td>
+                <td>{{ transaction.createdAt | date: 'medium' }}</td>
+                <td>
+                  <ul>
+                    @for(tag of transaction.tags; track $index) {
                     <li>{{ tag }}</li>
-
-                }
-            </ul>
-        </td>
-            
-          
-      </tr>
-    }
-    </tbody>
-  </table>}
+                    }
+                  </ul>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+}
