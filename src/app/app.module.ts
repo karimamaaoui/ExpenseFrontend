@@ -29,7 +29,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     BrowserModule,
     BrowserAnimationsModule,
     MyRouting,
-    HttpClientModule,
+   // HttpClientModule,
     FormsModule,
     ReactiveFormsModule,    
     ToastrModule.forRoot(), 

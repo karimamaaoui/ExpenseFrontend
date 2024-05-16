@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from "@angular/core";
 import { BudgetService } from '../services/budget.service';
 import { CategoryService } from '../services/category.service';
 import { ToastrService } from 'ngx-toastr';
@@ -7,103 +7,158 @@ import { Category } from '../models/Category';
 import { Budget } from '../models/Budget';
 import { Transaction } from '../models/Transaction';
 import { TransactionService } from '../services/transaction.service';
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ChartComponent,
+  ApexDataLabels,
+  ApexPlotOptions,
+  ApexLegend
+} from "ng-apexcharts";
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  legend: ApexLegend;
+  colors: string[];
+};
 
 @Component({
   selector: 'app-budget',
   templateUrl: './budget.component.html',
-  styleUrl: './budget.component.css'
+  styleUrls: ['./budget.component.css']
 })
 export class BudgetComponent {
 
-  tabCategories: Category [] = [];
+  tabCategories: Category[] = [];
   selectedCategory: string = '';
-  tabBudgets: Budget [] = [];
+  tabBudgets: Budget[] = [];
   tabTransactions: Transaction[] = [];
+  @ViewChild("chart") chart: ChartComponent;
+  public chartOptions: Partial<ChartOptions> | any;
+
   constructor(
-    private budgetService: BudgetService,private transactionService: TransactionService,private categorySer: CategoryService,private toastr: ToastrService,  private router: Router) {}
+    private budgetService: BudgetService,
+    private transactionService: TransactionService,
+    private categorySer: CategoryService,
+    private toastr: ToastrService,
+    private router: Router
+  ) {}
 
-
-   
-    ngOnInit(){
-      this.categorySer.getCategories().subscribe({
-        next : (data : Category[] ) => {
-          this.tabCategories= data;
-       //   console.log("response data",data)
-        
-        },
-        error: (err)=>{
-          console.error("Error",err);
-        }
-      });
-      this.loadBudgets(); 
-      this.loadTransactions()
-    }
-    loadBudgets() {
-      this.budgetService.getBudgets().subscribe({
-        next: (data: Budget[]) => {
-          this.tabBudgets = data;
-          console.log("Response data", data);
-        },
-        error: (e) => {
-          alert('Problem');
-        }
-      });
-    }
-
-
-    loadTransactions() {
-      this.transactionService.getTransactions().subscribe({
-        next: (data: Transaction[]) => {
-          this.tabTransactions = data;
-          console.log('Transactions:', this.tabTransactions); 
-        },
-        error: (error) => {
-          console.error('Error fetching transactions:', error);
-        }
-      });
-    }
-   
-    calculateSpentAmount(budgetCategory: string): number {
-      const transactionsForCategory = this.tabTransactions.filter(transaction => transaction.category.nameCat === budgetCategory);
-      
-      const totalSpentAmount = transactionsForCategory.reduce((total, transaction) => {
-        if (transaction.amount !== undefined && transaction.amount !== null) {
-       //   console.log("totla", total);
-          return total + transaction.amount;
-        } else {
-          return total;
-        }
-      }, 0);
-    
-      return totalSpentAmount;
-    }
-    calculateProgressColor(percentage: number): string {
-      if (percentage <= 25) {
-        return 'bg-info'; 
-      } else if (percentage <= 500) {
-        return 'bg-warning'; 
-      } else if (percentage <= 2000) {
-        return 'bg-danger'; 
-      } else {
-        return 'bg-success'; 
+  ngOnInit() {
+    this.categorySer.getCategories().subscribe({
+      next: (data: Category[]) => {
+        this.tabCategories = data;
+      },
+      error: (err) => {
+        console.error("Error", err);
       }
-    }
-    
+    });
+    this.loadBudgets();
+    this.loadTransactions();
+    this.createChart();
+  }
 
-    addBudget(f){
-      this.budgetService.addNewBudget(f.value).subscribe({
-        next: (response)=>{
-          console.log("response",response)
-          this.toastr.success('Budget Added Successful!');
-        },
-        error: (err)=>{
-          console.log("data",f.value)
-          console.log("error",err)
-          this.toastr.error(err['error'].message);
-          
-        },
-  
-      })
-    }
-  
+  createChart() {
+    this.chartOptions = {
+      series: [
+        {
+          name: "Actual",
+          data: []
+        }
+      ],
+      chart: {
+        height: 300,
+        type: "bar"
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true
+        }
+      },
+      colors: ["#00E396"],
+      dataLabels: {
+        formatter: function (val: any, opts: any) {
+          const goals =
+            opts.w.config.series[opts.seriesIndex].data[opts.dataPointIndex]
+              .goals;
+
+          if (goals && goals.length) {
+            return `${val} / ${goals[0].value}`;
+          }
+          return val;
+        }
+      },
+      legend: {
+        show: true,
+        showForSingleSeries: true,
+        customLegendItems: ["Actual", "Expected"],
+        markers: {
+          fillColors: ["#00E396", "#775DD0"]
+        }
+      }
+    };
+  }
+
+  loadBudgets() {
+    this.budgetService.getBudgets().subscribe({
+      next: (data: Budget[]) => {
+        this.tabBudgets = data;
+        console.log("Response data", data);
+      },
+      error: (e) => {
+        alert('Problem');
+      }
+    });
+  }
+
+  loadTransactions() {
+    this.transactionService.getTransactions().subscribe({
+      next: (data: Transaction[]) => {
+        this.tabTransactions = data;
+        console.log('Transactions:', this.tabTransactions); 
+        this.updateChart();  // Ensure the chart is updated after transactions are loaded
+      },
+      error: (error) => {
+        console.error('Error fetching transactions:', error);
+      }
+    });
+  }
+
+  updateChart() {
+    const dataSeries = this.tabTransactions.map(transaction => {
+      const year = new Date(transaction.createdAt).getFullYear();
+      return {
+        x: year,
+        y: transaction.amount,
+        goals: [
+          {
+            name: transaction.category.nameCat,
+            value: 1400,
+            strokeWidth: 5,
+            strokeColor: "#775DD0"
+          }
+        ]
+      };
+    });
+
+    this.chartOptions.series[0].data = dataSeries;
+  }
+
+
+  addBudget(f) {
+    this.budgetService.addNewBudget(f.value).subscribe({
+      next: (response) => {
+        console.log("response", response);
+        this.toastr.success('Budget Added Successful!');
+      },
+      error: (err) => {
+        console.log("data", f.value);
+        console.log("error", err);
+        this.toastr.error(err['error'].message);
+      },
+    });
+  }
 }

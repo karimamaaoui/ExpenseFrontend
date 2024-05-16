@@ -32,11 +32,13 @@ export class HomeComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {}
 
+  
   ngOnInit(): void {
     this.loadTransactions();
     this.loadCategories();
     this.initializeForm();
   }
+
 
   loadTransactions() {
     this.transactionService.getTransactions().subscribe({

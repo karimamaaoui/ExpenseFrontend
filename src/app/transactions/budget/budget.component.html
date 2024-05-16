@@ -41,23 +41,18 @@
 
 </div>
 
-<br>
-<div class="card card-budget">
-  <div class="card-body">
-    <h5 class="card-title">Existing Budgets</h5>
-    <div *ngFor="let budget of tabBudgets">
-      <div class="mb-3">
-        <p>{{ budget.category.nameCat }}</p>
-        <div class="progress">
-          <div class="progress-bar" [class]="calculateProgressColor(calculateSpentAmount(budget.category.nameCat))" role="progressbar" [style.width.%]="calculateSpentAmount(budget.category.nameCat)" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        <p>Total Spent: {{ calculateSpentAmount(budget.category.nameCat) }}</p>
-      </div>
-    </div>
-  </div>
-
 
 
   
  
+
+<div id="chart">
+  <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [legend]="chartOptions.legend"
+    [dataLabels]="chartOptions.dataLabels"
+    [colors]="chartOptions.colors"
+    [plotOptions]="chartOptions.plotOptions"
+  ></apx-chart>
 </div>

@@ -11,6 +11,7 @@ import { TagInputModule } from 'ngx-chips';
 import { CategoryChartsComponentComponent } from './category-charts-component/category-charts-component.component';
 import { ExpenseReportComponent } from './expense-report/expense-report.component';
 import { BudgetComponent } from './budget/budget.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { BudgetComponent } from './budget/budget.component';
     CommonModule,
     FormsModule,
     TagInputModule,
-    TransactionsRoutingModule
+    TransactionsRoutingModule,
+    NgApexchartsModule
   ]
 })
 export class TransactionsModule { }
