@@ -12,6 +12,8 @@ import { CategoryChartsComponentComponent } from './category-charts-component/ca
 import { ExpenseReportComponent } from './expense-report/expense-report.component';
 import { BudgetComponent } from './budget/budget.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { EditTransactionComponent } from './edit-transaction/edit-transaction.component';
+
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     CategoryChartsComponentComponent,
     ExpenseReportComponent,
     BudgetComponent,
+    EditTransactionComponent,
+  
   ],
   imports: [
     CommonModule,

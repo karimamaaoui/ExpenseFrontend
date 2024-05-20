@@ -36,3 +36,8 @@
 
     <button type="submit" class="btn btn-primary">Add Transaction</button>
 </form>
+
+<div>
+    <input type="file" (change)="onFileChange($event)">
+    <button (click)="importCSV()">Import CSV</button>
+  </div>

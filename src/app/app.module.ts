@@ -15,6 +15,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { authtokenInterceptor } from './authtoken.interceptor';
 import { NavbarComponent } from './navbar/navbar.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

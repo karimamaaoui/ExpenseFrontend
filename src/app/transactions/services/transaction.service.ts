@@ -22,5 +22,15 @@ export class TransactionService {
   searchTransaction(params){
     return this.http.get(`${this.url}/search`, {params});
   }
+  updateTransaction(id: string, updatedTransaction: Transaction): Observable<Transaction> {
+    return this.http.patch<Transaction>(`${this.url}/update/${id}`, updatedTransaction);
+  }
+
+  deleteTransaction(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}/delete/${id}`);
+  }
+  getTransactionById(id: string): Observable<Transaction> {
+    return this.http.get<Transaction>(`${this.url}/get/${id}`);
+  }
   
 }

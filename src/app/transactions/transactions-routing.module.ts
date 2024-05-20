@@ -6,6 +6,8 @@ import { HomeComponent } from './home/home.component';
 import { CategoryComponent } from './category/category.component';
 import { ExpenseReportComponent } from './expense-report/expense-report.component';
 import { BudgetComponent } from './budget/budget.component';
+import { EditTransactionComponent } from './edit-transaction/edit-transaction.component'; // Import the new component
+
 
 const routes: Routes = [
   {
@@ -24,6 +26,9 @@ const routes: Routes = [
   },
   {
     path: 'budget', component: BudgetComponent
+  },
+  {
+    path: 'edit-transaction/:id', component: EditTransactionComponent // Add the new route for editing transactions
   }
 ];
 
