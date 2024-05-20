@@ -1,27 +1,38 @@
-<div class="container">
-    <h2>Edit Transaction</h2>
-    <form (ngSubmit)="saveTransaction()">
-      <div class="form-group">
-        <label for="description">Description</label>
-        <input type="text" class="form-control" id="description" [(ngModel)]="transaction.description" name="description" required>
-      </div>
-      <div class="form-group">
-        <label for="amount">Amount</label>
-        <input type="number" class="form-control" id="amount" [(ngModel)]="transaction.amount" name="amount" required>
-      </div>
-      <div class="form-group">
-        <label for="category">Category</label>
-        <input type="text" class="form-control" id="category" [(ngModel)]="transaction.category.nameCat" name="category" required>
-      </div>
-      <div class="form-group">
-        <label for="typePayment">Type Payment</label>
-        <input type="text" class="form-control" id="typePayment" [(ngModel)]="transaction.typePayment" name="typePayment" required>
-      </div>
-      <div class="form-group">
-        <label for="tags">Tags</label>
-        <input type="text" class="form-control" id="tags" [(ngModel)]="transaction.tags" name="tags" required>
-      </div>
-      <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-  </div>
-  
+@if (transaction){
+  <div>
+  <h3>Edit Transaction</h3>
+  <form #f="ngForm" (ngSubmit)="saveTransaction()">
+    <div class="mb-3">
+        <label for="amount" class="form-label">Amount</label>
+        <input type="number" class="form-control" id="amount" name="amount" [(ngModel)]="transaction.amount" required>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" name="description" [(ngModel)]="transaction.description" required>
+    </div>
+    <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-select" name="category" [(ngModel)]="transaction.category">
+            <option value="">Select a category</option>
+            <option *ngFor="let cat of tabCategories; trackBy: trackByCategoryId" [value]="cat._id">{{ cat.nameCat }}</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="typePayment" class="form-label">Type Payment</label>
+        <select class="form-select" name="typePayment" [(ngModel)]="transaction.typePayment">
+            <option value="">Select type of payment</option>
+            <option value="cash">Cash</option>
+            <option value="card">Card</option>
+            <option value="paypal">PayPal</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="tags" class="form-label">Tags: </label>
+        <tag-input [(ngModel)]="transaction.tags" name="tags"></tag-input>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Transaction</button>
+    <button type="button" (click)="cancelEdit()" class="btn btn-secondary">Cancel</button>
+  </form>
+</div>
+
+}

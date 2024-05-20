@@ -28,7 +28,7 @@ const routes: Routes = [
     path: 'budget', component: BudgetComponent
   },
   {
-    path: 'edit-transaction/:id', component: EditTransactionComponent // Add the new route for editing transactions
+    path: 'edit/:id', component: EditTransactionComponent // Add the new route for editing transactions
   }
 ];
 
