@@ -26,7 +26,7 @@ export class TransactionListComponent {
   }
 
   editTransaction(id: String) {
-    this.router.navigate(['/edit-transaction', id]);
+    this.router.navigate([`edit-transaction/${id}`]);
   }
 
   deleteTransaction(id: string) {
